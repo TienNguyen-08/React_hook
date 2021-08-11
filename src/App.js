@@ -5,6 +5,8 @@ import Pagination from './components/Pagination/Pagination';
 import PostList from './components/Postlist/PostList';
 import TodoForm from './components/Todolist/TodoForm';
 import Todolist from './components/Todolist/Todolist';
+import FiltersForm from './components/Postlist/FiltersForm';
+import Clock from './components/Clock/Clock';
 
 function App() {
   const [todolist, setTodolist] = useState([
@@ -44,7 +46,6 @@ function App() {
         } catch (error) {
           console.log('fetch data error', error.message);
         }
-        console.log(postlist);
       }
 
       fetchPostlist();
@@ -78,17 +79,31 @@ function App() {
       newTodolist.push(todo);
       setTodolist(newTodolist);
     }
+
+    function handleSearchItem (newFilters){
+      setFilters({
+        ...filters,
+        _page:1,
+        title_like: newFilters.searchItem,
+      })
+    }
   
+    const [showClock, setShowClock] = useState(true);
+
   return (
     <div className="app">
       {/* To do list */}
       <h1>Post list</h1>
       {/* <TodoForm onSubmit={handleTodoFormSubmit}/>
       <Todolist todos={todolist} onTodoClick={handleTodoClick}/> */}
+      {/* <FiltersForm onSubmit={handleSearchItem} />
       <PostList posts={postlist}/>     
       <Pagination pagination={pagination}
-        onChangepage = {handlPageChange}
-      />                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        onChangepage = {handlPageChange}/>
+        
+        */}
+        {showClock && <Clock/>}
+      <button onClick={()=>{setShowClock(!showClock)}}>Hide Clock</button>
     </div>                                      
   );
 }
