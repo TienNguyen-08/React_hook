@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
+import PostList from './components/Postlist/PostList';
 import TodoForm from './components/Todolist/TodoForm';
 import Todolist from './components/Todolist/Todolist';
 
@@ -11,6 +12,27 @@ function App() {
       {id: 4, title:' learn MongoDB'},
       {id: 5, title:' learn Animation'}
     ]);
+
+    const [postlist, setPostlist] = useState([]);
+
+    useEffect(() => {
+      async function fetchPostlist () {
+        try {
+          const RequestUrl = 'http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1';
+          const response = await fetch(RequestUrl);
+          const responseJSON = await response.json();
+          console.log({responseJSON});
+
+          const {data} = responseJSON;
+          setPostlist(data);
+        } catch (error) {
+          console.log('fetch data error', error.message);
+        }
+        console.log(postlist);
+      }
+
+      fetchPostlist();
+    }, []);
 
     function handleTodoClick(todo){
       //console.log(todo);
@@ -36,11 +58,11 @@ function App() {
   return (
     <div className="app">
       {/* To do list */}
-      <h1>React-hook-Todolist</h1>
-      <TodoForm onSubmit={handleTodoFormSubmit}/>
-      <Todolist todos={todolist} onTodoClick={handleTodoClick}/>
-    </div>
+      <h1>Post list</h1>
+      {/* <TodoForm onSubmit={handleTodoFormSubmit}/>
+      <Todolist todos={todolist} onTodoClick={handleTodoClick}/> */}
+      <PostList posts={postlist}/>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+    </div>                                      
   );
 }
-
 export default App;
