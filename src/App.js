@@ -7,6 +7,7 @@ import TodoForm from './components/Todolist/TodoForm';
 import Todolist from './components/Todolist/Todolist';
 import FiltersForm from './components/Postlist/FiltersForm';
 import Clock from './components/Clock/Clock';
+import MagicBox from './components/Magicbox/MagicBox';
 
 function App() {
   const [todolist, setTodolist] = useState([
@@ -87,7 +88,6 @@ function App() {
         title_like: newFilters.searchItem,
       })
     }
-  
     const [showClock, setShowClock] = useState(true);
 
   return (
@@ -102,8 +102,9 @@ function App() {
         onChangepage = {handlPageChange}/>
         
         */}
-        {showClock && <Clock/>}
-      <button onClick={()=>{setShowClock(!showClock)}}>Hide Clock</button>
+        {/* {showClock && <Clock/>}
+      <button onClick={()=>{setShowClock(!showClock)}}>Hide Clock</button> */}
+      <MagicBox/>
     </div>                                      
   );
 }
